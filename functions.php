@@ -4,8 +4,14 @@ require(dirname(__FILE__) . "/classes/epimetheus_nav_walker.php");
 
 class EpimetheusTheme
 {
+	public $child_theme_loaded = False;
+	public $child_theme_name = "";
+
 	public function initialize() {
 		register_nav_menu( 'primary', 'Primary Menu' );
+		$this->child_theme_name = get_option('epimetheus_child');
+		if($this->child_theme_name) $this->child_theme_loaded = True;
+		delete_option('epimetheus_child');
 	}
 
 	public function load_styles() {
