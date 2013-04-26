@@ -1,18 +1,25 @@
 <?php
 
+require(dirname(__FILE__) . "/hybrid-core/hybrid.php");
+new Hybrid();
+
 require(dirname(__FILE__) . "/classes/epimetheus_nav_walker.php");
 
 class EpimetheusTheme
 {
 	public $child_theme_loaded = False;
 	public $child_theme_name = "";
+	public $child_theme_directory = "";
 	public $load_styles = True;
 
 	public function initialize() {
 		register_nav_menu( 'primary', 'Primary Menu' );
 		$this->child_theme_name = get_option('epimetheus_init_child');
 		$this->load_styles = get_option('epimetheus_init_load_styles', True);
-		if($this->child_theme_name) $this->child_theme_loaded = True;
+		if($this->child_theme_name) {
+			$this->child_theme_loaded = True;
+			$this->child_theme_directory = dirname(dirname(__FILE__))."/".$this->child_theme_name;
+		}
 		$this->_delete_options();
 	}
 
@@ -32,9 +39,18 @@ class EpimetheusTheme
 			'before_title' => '<h3 class="widget-title">',
 			'after_title' => '</h3>',
 		) );
+
+		register_sidebar( array(
+			'name' => __( 'Footer Bar', 'epimetheus' ),
+			'id' => 'sidebar-2',
+			'class' => 'side-nav',
+			'description' => __( 'Appears in the footer', 'epimetheus' ),
+			'before_widget' => '',
+			'after_widget' => '',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
 	}
-
-
 
 	public function parse_shortcode_content( $content ) {
 
