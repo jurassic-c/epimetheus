@@ -173,9 +173,9 @@ if(!function_exists('epimetheus_init_option')) {
 }
 
 $epimetheus = new EpimetheusTheme();
-add_action('after_setup_theme', array($epimetheus, 'initialize'));
+add_action('after_setup_theme', array($epimetheus, 'initialize'), 0);
 add_action('widgets_init', array($epimetheus, 'initialize_widgets'));
-add_action('wp_enqueue_scripts', array($epimetheus, 'load_styles') );
+add_action('wp_enqueue_scripts', array($epimetheus, 'load_styles'), 10 );
 add_shortcode('column', array($epimetheus, 'foundation_column'));
 add_shortcode('column_inner', array($epimetheus, 'foundation_column'));
 add_shortcode('column_wrapper', array($epimetheus, 'foundation_column'));
